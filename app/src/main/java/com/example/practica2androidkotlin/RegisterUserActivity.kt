@@ -15,9 +15,6 @@ class RegisterUserActivity : AppCompatActivity() {
 
     //datos de los editText
 
-    private lateinit var name: String
-    private lateinit var lastName: String
-    private var single = false
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +26,14 @@ class RegisterUserActivity : AppCompatActivity() {
 
         part2userCode = intent.getStringExtra("cod").toString()
         binding.btnRegister.setOnClickListener {
+            //Verificación de que los campos no estén vacíos
+            //con esto aseguramos de que se registre el usuario si o si
             if(binding.etName.text.isNotEmpty() && binding.etLastName.text.isNotEmpty()){
                 try {
-                    user = User((reciveDataUser() + part2userCode), name, lastName, single)
+                    user = User((genereteUser(part2userCode)),
+                        binding.etName.text.toString(),
+                        binding.etLastName.text.toString(),
+                        binding.swSingle.isChecked)
                     binding.tvUserData.visibility = View.VISIBLE
                     binding.tvUserData.text = user.showInformation()
                 } catch (e: Exception) {
@@ -40,14 +42,16 @@ class RegisterUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun reciveDataUser(): String {
-        var l_part1UserCode = ""
+    //Mètodo para generar el código del usuario
+
+    private fun genereteUser(p_part2UserCode: String): String {
+        var part1UserCode = ""
 
         //Asignar valores
 
-        l_part1UserCode += "${binding.etName.text.toString().uppercase().get(0)}" +
-                "${binding.etLastName.text.toString().uppercase().get(0)}-"
-        l_part1UserCode += if (binding.swSingle.isChecked) /*Casado*/ "C" else /*Soltero*/ "S"
-        return l_part1UserCode
+        part1UserCode += "${binding.etName.text.toString().uppercase()[0]}" +
+                "${binding.etLastName.text.toString().uppercase()[0]}-"
+        part1UserCode += if (binding.swSingle.isChecked) /*Casado*/ "C-" else /*Soltero*/ "S-"
+        return part1UserCode + p_part2UserCode
     }
 }

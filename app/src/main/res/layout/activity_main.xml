@@ -22,9 +22,19 @@
         android:id="@+id/btnStartProcess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/txt_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pbProgress"
+        app:layout_constraintStart_toStartOf="@+id/pbProgress"
+        app:layout_constraintTop_toBottomOf="@+id/pbProgress" />
+
+    <ProgressBar
+        android:id="@+id/pbProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvProcess"
+        app:layout_constraintStart_toStartOf="@+id/tvProcess"
         app:layout_constraintTop_toBottomOf="@+id/tvProcess" />
 </androidx.constraintlayout.widget.ConstraintLayout>
