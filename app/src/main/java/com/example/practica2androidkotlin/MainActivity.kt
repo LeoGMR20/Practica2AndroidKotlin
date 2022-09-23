@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         binding.tvProcess.text = "1"
         Thread{
             try {
-                for(i in 2..3) { //todo cambiarle a 10 seg al finalizar todo
+                for(i in 2..10) { //todo cambiarle a 10 seg al finalizar todo
                     Thread.sleep(1000)
                     handlerProcess.post{
-                        if (i != 3) binding.tvProcess.text = "$i"
+                        if (i != 10) binding.tvProcess.text = "$i"
                         else binding.tvProcess.text = "LISTO"
                     }
                 }
