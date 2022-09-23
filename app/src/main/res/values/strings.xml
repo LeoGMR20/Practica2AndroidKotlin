@@ -2,4 +2,9 @@
     <string name="app_name">Practica2AndroidKotlin</string>
     <string name="txt_progress_process">Pulse el siguiente botón</string>
     <string name="txt_start">Comenzar</string>
+    <string name="txt_register_user">Ingrese los siguientes datos</string>
+    <string name="txt_name">Nombre</string>
+    <string name="txt_last_name">Apellido</string>
+    <string name="txt_single">¿Está solter@?</string>
+    <string name="txt_register">Registrar</string>
 </resources>

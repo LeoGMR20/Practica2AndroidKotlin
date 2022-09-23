@@ -9,10 +9,16 @@ class RegisterUserActivity : AppCompatActivity() {
     //Variables
 
     private lateinit var binding: ActivityRegisterUserBinding
+    private lateinit var userCode: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Capturamos el código del intent de la primera pantalla
+
+        userCode = intent.getStringExtra("cod").toString()
+        binding.btnRegister.setOnClickListener {  }
     }
 }

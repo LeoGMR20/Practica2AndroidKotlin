@@ -1,5 +1,6 @@
 package com.example.practica2androidkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -26,52 +27,69 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnStartProcess.setOnClickListener {
             startCount()
-            prevCodUser = generateCode()
         }
     }
 
     private fun startCount() {
         //Cambios en el textView tvProcess
-        binding.tvProcess.text = "0"
+        binding.tvProcess.text = "1"
         Thread{
             try {
-                for(i in 1..10) {
+                for(i in 2..3) { //todo cambiarle a 10 seg al finalizar todo
                     Thread.sleep(1000)
                     handlerProcess.post{
-                        binding.apply {
-                            tvProcess.text = "$i"
-                        }
+                        if (i != 3) binding.tvProcess.text = "$i"
+                        else binding.tvProcess.text = "LISTO"
                     }
                 }
-                binding.tvProcess.text = "LISTO"
-
+                Thread.sleep(3000) //Para ver el mensaje de LISTO
+                prevCodUser = generateCode()
+                //Luego de generar el código y que haya terminado el contador
+                //pasamos de pantalla
+                passScreen()
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
         }.start()
     }
 
-    private fun generateCode():String {
-        var codigo = ""
-        Thread{
-            try {
-                for (number in generateRandomNumber()) codigo.plus(number.toString())
-                codigo.plus("-")
+    //Funciones para generar codigo aleatorio
 
-            } catch (e: InterruptedException){
-                e.printStackTrace()
-            }
-        }.start()
+    private fun generateCode(): String {
+        var codigo = ""
+        for (number in generateRandomNumber()) codigo += number
+        codigo += "-"
+        for (char in generateRandomCharacter()) codigo += char
         return codigo
     }
 
     private fun generateRandomNumber(): MutableList<Int> {
         val listNumbers: MutableList<Int> = arrayListOf()
-        var repeatNumber = (0..9).random()
-        listNumbers.add(repeatNumber)
+        var repeatedNumber: Int
+        listNumbers.add((0..9).random())
         do {
-            listNumbers.add((0..9).random())
-        } while (listNumbers.contains(repeatNumber))
+            repeatedNumber = (0..9).random()
+        } while (listNumbers.contains(repeatedNumber))
+        listNumbers.add(repeatedNumber)
         return listNumbers
+    }
+
+    private fun generateRandomCharacter(): MutableList<Char> {
+        val listChars: MutableList<Char> = arrayListOf()
+        var repeatedChar: Int
+        listChars.add((65..90).random().toChar())
+        do {
+            repeatedChar = (65..90).random()
+        }while (listChars.contains(repeatedChar.toChar()))
+        listChars.add(repeatedChar.toChar())
+        return listChars
+    }
+
+    //Creacion de un intent para pasar de pantalla
+
+    private fun passScreen() {
+        val intent = Intent(this,RegisterUserActivity::class.java)
+        intent.apply { putExtra("cod", prevCodUser) }
+        startActivity(intent)
     }
 }
