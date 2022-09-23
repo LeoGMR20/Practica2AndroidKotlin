@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Practica2AndroidKotlin</string>
+    <string name="txt_progress_process">Pulse el siguiente botón</string>
+    <string name="txt_start">Comenzar</string>
 </resources>
