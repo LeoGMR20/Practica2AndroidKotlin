@@ -29,6 +29,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCount() {
+        count()
+        generateThreadCode()
+    }
+
+    //Funciones para procesos
+
+    private fun count() {
         //Cambios en el textView tvProcess
         binding.tvProcess.text = "1"
         Thread{
@@ -44,7 +51,17 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 Thread.sleep(1000) //Para ver el mensaje de LISTO
-                handlerProcess.post{
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
+    private fun generateThreadCode() {
+        val hilo = Thread(Runnable {
+            try {
+                Thread.sleep(10000)
+                runOnUiThread{
                     prevCodUser = generateCode()
                     //Luego de generar el código y que haya terminado el contador
                     //pasamos de pantalla
@@ -53,7 +70,8 @@ class MainActivity : AppCompatActivity() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-        }.start()
+        })
+        hilo.start()
     }
 
     //Funciones para generar codigo aleatorio

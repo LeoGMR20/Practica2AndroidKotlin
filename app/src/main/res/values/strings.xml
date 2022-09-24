@@ -5,6 +5,6 @@
     <string name="txt_register_user">Ingrese los siguientes datos</string>
     <string name="txt_name">Nombre</string>
     <string name="txt_last_name">Apellido</string>
-    <string name="txt_single">¿Está solter@ o casad@?</string>
+    <string name="txt_single">Solter@/Casad@</string>
     <string name="txt_register">Registrar</string>
 </resources>

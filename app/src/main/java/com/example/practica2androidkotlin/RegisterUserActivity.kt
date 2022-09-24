@@ -11,7 +11,6 @@ class RegisterUserActivity : AppCompatActivity() {
     //Variables
 
     private lateinit var binding: ActivityRegisterUserBinding
-    private lateinit var part2userCode: String
 
     //datos de los editText
 
@@ -22,19 +21,18 @@ class RegisterUserActivity : AppCompatActivity() {
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Capturamos el código del intent de la primera pantalla
-
-        part2userCode = intent.getStringExtra("cod").toString()
         binding.btnRegister.setOnClickListener {
             //Verificación de que los campos no estén vacíos
             //con esto aseguramos de que se registre el usuario si o si
             if(binding.etName.text.isNotEmpty() && binding.etLastName.text.isNotEmpty()){
                 try {
                     binding.apply {
-                        user = User((genereteUser(part2userCode)),
-                            etName.text.toString(),
+                        user = User(etName.text.toString(),
                             etLastName.text.toString(),
                             swSingle.isChecked)
+                        //generación del código del usuario, mediante la función que viene
+                        //desde una interfaz (aplicable a todo el sistema)
+                        user.code = user.generateCodeUser(intent.getStringExtra("cod").toString())
                         tvUserData.visibility = View.VISIBLE
                         tvUserData.text = user.showInformation()
                     }
@@ -42,18 +40,5 @@ class RegisterUserActivity : AppCompatActivity() {
                     Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_LONG).show()}
             } else Toast.makeText(this, "Ingrese todos los datos", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    //Mètodo para generar el código del usuario
-
-    private fun genereteUser(p_part2UserCode: String): String {
-        var part1UserCode = ""
-
-        //Asignar valores
-
-        part1UserCode += "${binding.etName.text.toString().uppercase()[0]}" +
-                "${binding.etLastName.text.toString().uppercase()[0]}-"
-        part1UserCode += if (binding.swSingle.isChecked) /*Casado*/ "C-" else /*Soltero*/ "S-"
-        return part1UserCode + p_part2UserCode
     }
 }
