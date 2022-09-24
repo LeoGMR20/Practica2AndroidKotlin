@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
                     Thread.sleep(1000)
                     handlerProcess.post{
                         binding.apply {
-                            if (i != 10) tvProcess.text = "$i"
-                            else tvProcess.text = "LISTO"
+                            tvProcess.text = if (i != 10) "$i" else "LISTO"
                             pbProgress.progress = i * 10
                         }
                     }
@@ -58,10 +57,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateThreadCode() {
-        val hilo = Thread(Runnable {
+        val hilo = Thread {
             try {
                 Thread.sleep(10000)
-                runOnUiThread{
+                runOnUiThread {
                     prevCodUser = generateCode()
                     //Luego de generar el código y que haya terminado el contador
                     //pasamos de pantalla
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-        })
+        }
         hilo.start()
     }
 
