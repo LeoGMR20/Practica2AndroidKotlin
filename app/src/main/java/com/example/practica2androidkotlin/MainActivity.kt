@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                Thread.sleep(1500) //Para ver el mensaje de LISTO
+                Thread.sleep(1000) //Para ver el mensaje de LISTO
                 prevCodUser = generateCode()
                 //Luego de generar el código y que haya terminado el contador
                 //pasamos de pantalla
