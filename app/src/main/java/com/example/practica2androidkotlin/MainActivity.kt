@@ -25,9 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         //Inicio del proceso con el click del botón
 
-        binding.btnStartProcess.setOnClickListener {
-            startCount()
-        }
+        binding.btnStartProcess.setOnClickListener { startCount() }
     }
 
     private fun startCount() {
@@ -46,10 +44,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 Thread.sleep(1000) //Para ver el mensaje de LISTO
-                prevCodUser = generateCode()
-                //Luego de generar el código y que haya terminado el contador
-                //pasamos de pantalla
-                passScreen()
+                handlerProcess.post{
+                    prevCodUser = generateCode()
+                    //Luego de generar el código y que haya terminado el contador
+                    //pasamos de pantalla
+                    passScreen()
+                }
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
