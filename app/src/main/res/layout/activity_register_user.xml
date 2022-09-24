@@ -77,6 +77,7 @@
         android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="@color/black"
+        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/btnRegister"
         app:layout_constraintStart_toStartOf="@+id/btnRegister"

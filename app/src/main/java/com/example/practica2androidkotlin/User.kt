@@ -5,8 +5,8 @@ class User(
     val name: String,
     val lastName: String,
     val single: Boolean
-) {
-    fun showInformation(): String{
+): Information {
+    override fun showInformation(): String {
         return """
             Nombre: $name
             Apellido: $lastName

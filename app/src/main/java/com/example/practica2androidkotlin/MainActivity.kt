@@ -35,14 +35,17 @@ class MainActivity : AppCompatActivity() {
         binding.tvProcess.text = "1"
         Thread{
             try {
-                for(i in 2..10) { //todo cambiarle a 10 seg al finalizar todo
+                for(i in 2..10) {
                     Thread.sleep(1000)
                     handlerProcess.post{
-                        if (i != 10) binding.tvProcess.text = "$i"
-                        else binding.tvProcess.text = "LISTO"
+                        binding.apply {
+                            if (i != 10) tvProcess.text = "$i"
+                            else tvProcess.text = "LISTO"
+                            pbProgress.progress = i * 10
+                        }
                     }
                 }
-                Thread.sleep(3000) //Para ver el mensaje de LISTO
+                Thread.sleep(1500) //Para ver el mensaje de LISTO
                 prevCodUser = generateCode()
                 //Luego de generar el código y que haya terminado el contador
                 //pasamos de pantalla
@@ -57,32 +60,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateCode(): String {
         var codigo = ""
-        for (number in generateRandomNumber()) codigo += number
+        for (char in generateRandom(65,90)) codigo += char.toChar()
         codigo += "-"
-        for (char in generateRandomCharacter()) codigo += char
+        for (number in generateRandom(0,9)) codigo += number
         return codigo
     }
 
-    private fun generateRandomNumber(): MutableList<Int> {
+    private fun generateRandom(first: Int, last: Int): MutableList<Int> {
         val listNumbers: MutableList<Int> = arrayListOf()
         var repeatedNumber: Int
-        listNumbers.add((0..9).random())
+        listNumbers.add((first..last).random())
         do {
-            repeatedNumber = (0..9).random()
+            repeatedNumber = (first..last).random()
         } while (listNumbers.contains(repeatedNumber))
         listNumbers.add(repeatedNumber)
         return listNumbers
-    }
-
-    private fun generateRandomCharacter(): MutableList<Char> {
-        val listChars: MutableList<Char> = arrayListOf()
-        var repeatedChar: Int
-        listChars.add((65..90).random().toChar())
-        do {
-            repeatedChar = (65..90).random()
-        }while (listChars.contains(repeatedChar.toChar()))
-        listChars.add(repeatedChar.toChar())
-        return listChars
     }
 
     //Creacion de un intent para pasar de pantalla

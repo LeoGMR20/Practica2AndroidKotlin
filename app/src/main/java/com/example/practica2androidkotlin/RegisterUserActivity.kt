@@ -30,14 +30,16 @@ class RegisterUserActivity : AppCompatActivity() {
             //con esto aseguramos de que se registre el usuario si o si
             if(binding.etName.text.isNotEmpty() && binding.etLastName.text.isNotEmpty()){
                 try {
-                    user = User((genereteUser(part2userCode)),
-                        binding.etName.text.toString(),
-                        binding.etLastName.text.toString(),
-                        binding.swSingle.isChecked)
-                    binding.tvUserData.visibility = View.VISIBLE
-                    binding.tvUserData.text = user.showInformation()
+                    binding.apply {
+                        user = User((genereteUser(part2userCode)),
+                            etName.text.toString(),
+                            etLastName.text.toString(),
+                            swSingle.isChecked)
+                        tvUserData.visibility = View.VISIBLE
+                        tvUserData.text = user.showInformation()
+                    }
                 } catch (e: Exception) {
-                    Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()}
+                    Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_LONG).show()}
             } else Toast.makeText(this, "Ingrese todos los datos", Toast.LENGTH_SHORT).show()
         }
     }
